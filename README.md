@@ -395,17 +395,20 @@ You should consider upgrading via the 'pip install --upgrade pip' command.
 
 <a href="https://byu.box.com/s/hdgztcu12j7fij397jmd68h4og6ln1jw">DATASET</a> 다운로드`data_training_V4.zip`，압축 해제 후, 폴더 이름 지정`data_training`， `dxy_DAC_SDC_2020_model`과 동일한 디렉토리에 저장 
 
-然后需要将数据集分为训练集（train）和验证集（valid）：
+Dataset 나누기（train / valid）：
 ```bash
 cd dxy_DAC_SDC_2020_model/dac_sdc_2020
 
 python3 split_data.py
 ```
-默认是按9：1的比例划分train和valid。如果不成功可能需要改一下路径？运行完成后会在`data_training`和`dxy_DAC_SDC_2020_model`同目录下生成`dac_sdc_2020_dataset`文件夹，其中包含`dac.names`（95个类的名字）、`train`（训练集）和`valid`（验证集）
+나누기 비율 Train(9)：Valid(1).  
+실패시 경로 변경
+`data_training`과 `dxy_DAC_SDC_2020_model` 동일 디렉토리 생성
+`dac_sdc_2020_dataset` 포함하는 폴더 `dac.names`（95 Class）、`train`（Train set）`valid`（Valid set）
 
-## 2. 配置训练参数
+## 2. Train Parameter 변수 구성
 
-训练参数在`dxy_DAC_SDC_2020_model/train/config.py`中。我没有用命令行传参数，所有的参数配置都在这个里面。看注释应该能看懂，改起来也非常方便。
+Train Parameter Variable `dxy_DAC_SDC_2020_model/train/config.py`中。我没有用命令行传参数，所有的参数配置都在这个里面。看注释应该能看懂，改起来也非常方便。
 
 ## 3. 训练
 
