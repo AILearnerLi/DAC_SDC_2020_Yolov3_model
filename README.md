@@ -391,9 +391,9 @@ You should consider upgrading via the 'pip install --upgrade pip' command.
 </pre>
 </details>
 
-## 1. 准备数据集
+## 1. 데이터 세트 준비
 
-<a href="https://byu.box.com/s/hdgztcu12j7fij397jmd68h4og6ln1jw">比赛的数据集文件</a>下载下来名为`data_training_V4.zip`，解压后名为`data_training`，将其与`dxy_DAC_SDC_2020_model`放在同一目录下。
+<a href="https://byu.box.com/s/hdgztcu12j7fij397jmd68h4og6ln1jw">DATASET</a> 다운로드`data_training_V4.zip`，압축 해제 후, 폴더 이름 지정`data_training`， `dxy_DAC_SDC_2020_model`과 동일한 디렉토리에 저장 
 
 然后需要将数据集分为训练集（train）和验证集（valid）：
 ```bash
