@@ -2,36 +2,42 @@
 
 Yolov3 model for <a href="https://dac.com/content/2020-system-design-contest">DAC SDC 2020</a>.
 
-这个比赛大概就是要对无人机拍摄的照片中进行目标检测，要求在一块Ultra96的FPGA板子上跑，测试指标有iou、fps和功耗。因为现在新冠疫情回不去学校，所以没有板子，所以我已经弃疗了。这个repo是训练模型的代码。
+이 대회는, 드론으로 찍은 사진에서 표적 탐지에 관한 것.
+Ultra96 FPGA 보드에서 실행,
+테스트 IOU, FPS  및  소비전력  
+repo : 모델 학습을 위한 코드.  
 
-需要做的：
-- 模型压缩
-- 现在把resnet_18里的第一个7x7卷积换成了3x3卷积（为了硬件上少占用资源），先看一看效果
-- ~~改成depthwise conv~~
-- ~~anchor大小cluster（kmeans）~~
-  - 先用sklearn里的kmeans得到欧几里得距离的centers
-  - 将上面的centers作为初值，用IOU再跑一个kmeans
-  - 得到的新的anchors（是相对于$640\times352$大小的）: 
+
+
+ToDo List：
+- model 압축
+- resnet_18의 첫번째 7x7 Convolution을 3x3 Convolution으로 바꾸기（HW 더 적은 resouce 사용을 위해），효과 확인 요.  
+- ~~depthwise conv 으로 변경~~
+- ~~anchor 크기 cluster（kmeans）~~
+  - 먼저 sklearn에서 kmeans를 사용하여 유클리드 centers 얻기
+  - 상기 centers 를 초기 값으로 사용하여, IOU, kmeans 를 실행
+  - 획득한 새 anchors（$640\times352$ 크기 기준）: 
   ```python
   "anchors": [[[117.92, 57.98], [56.57, 139.19], [163.46, 132.17]],
               [[48.65, 45.88], [35.41, 81.16], [75.67, 76.64]],
               [[12.90, 26.01], [29.35, 29.03], [24.03, 52.87]]],
   ```
-- ~~Yolo loss需要稍微改一下~~
-  - 修改noobj_mask的计算
-  - w和h的loss乘上(2-gt.w*gt.h)，现在乘的是这玩意的平方
-- 其他的backbone？以及可以考虑先在其他的数据集训练backbone，因为没有depthwise conv的预训练模型
+- ~~Yolo loss 약간 변경~~
+  - noobj_mask 계산 수정
+  - w와 h의 loss에 (2-gt.w*gt.h)를 곱， 이것읠 제곱
+- 다른 backbone？ 다른 Dataset에 대한 Training를 고려, backbone，depthwise 없기때문에, conv 사전 훈련된 모델
+
 
 # Usage
 
-## 0. 配置环境
+## 0. 환경 구성
 
-没有`requirements.txt`，因为我没用虚拟环境，一生成会出来一大堆。运行一下看哪个没有装哪个。
+没有`requirements.txt`，가상 환경 사용하지 않기 때문에，설치, 환경 구성。
 
-- 服务器系统：ubuntu 16.04
-- pytorch版本：1.1.0
-- cuda版本：9.0
-- python版本：Python 3.6.6 |Anaconda, Inc.
+- system os：ubuntu 16.04
+- pytorch version：1.1.0
+- cuda version：9.0
+- python version：Python 3.6.6 |Anaconda, Inc.
 
 <details>
 <summary>conda list</summary>
@@ -406,22 +412,23 @@ python3 split_data.py
 `data_training`과 `dxy_DAC_SDC_2020_model` 동일 디렉토리 생성
 `dac_sdc_2020_dataset` 포함하는 폴더 `dac.names`（95 Class）、`train`（Train set）`valid`（Valid set）
 
+
 ## 2. Train Parameter 변수 구성
 
-Train Parameter Variable `dxy_DAC_SDC_2020_model/train/config.py`中。我没有用命令行传参数，所有的参数配置都在这个里面。看注释应该能看懂，改起来也非常方便。
+Train Parameter Variable `dxy_DAC_SDC_2020_model/train/config.py` , parameter 구성  
 
-## 3. 训练
+## 3. Training
 
-最开始没有预训练，直接随机参数暴力训练。
+최초 사전 훈련이 없으므로, 직접 random 매개 변수 
 
 ```bash
-cd dxy_DAC_SDC_2020_model/train
-
-python3 dxy_train.py
+$ cd dxy_DAC_SDC_2020_model/train
+$ python3 dxy_train.py
 ```
-训练时会在config中指定的`working_dir`下面建立文件夹，保存模型和测试结果。每一个`.pth`文件保存了一个字典，其中有config、模型参数、验证集上的结果等。直接`torch.load('.pth')`即可。
+훈련 중, config 지정, `working_dir` 폴더 아래에 만들기，모델 및 테스트 결과 저장. `.pth` 사전，config 포함, 모델 매개변수、검증 세트 등에 대한 결과.  
+직접 `torch.load('.pth')` 가능
 
-每一个epoch的会在验证集上测试一遍，并保存一个`.pth`文件。
+매 epoch 마다 Valid 세트에서 테스트， 그리고 `.pth` 파일에 저장.  
 
 
 # References
