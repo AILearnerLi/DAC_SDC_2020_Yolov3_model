@@ -6,8 +6,8 @@ import random
 
 def main():
 
-    dataset_path = '../../data_training'
-    new_path = '../../dac_sdc_2020_dataset'
+    dataset_path = 'data_training'  #'../../data_training'
+    new_path = 'dac_sdc_2020_dataset' #'../../dac_sdc_2020_dataset'
     train_ratio = 0.9  # valid ratio = 1 - train_ratio
 
     assert os.path.exists(dataset_path)
