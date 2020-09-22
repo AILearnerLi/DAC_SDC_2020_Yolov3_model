@@ -32,7 +32,7 @@ ToDo List：
 
 ## 0. 환경 구성
 
-没有`requirements.txt`，가상 환경 사용하지 않기 때문에，설치, 환경 구성。
+`requirements.txt`，가상 환경 사용하지 않기 때문에，설치, 환경 구성。
 
 - system os：ubuntu 16.04
 - pytorch version：1.1.0
@@ -397,32 +397,34 @@ You should consider upgrading via the 'pip install --upgrade pip' command.
 </pre>
 </details>
 
+
 ## 1. 데이터 세트 준비
 
-<a href="https://byu.box.com/s/hdgztcu12j7fij397jmd68h4og6ln1jw">DATASET</a> 다운로드`data_training_V4.zip`，압축 해제 후, 폴더 이름 지정`data_training`， `dxy_DAC_SDC_2020_model`과 동일한 디렉토리에 저장 
+<a href="https://byu.box.com/s/hdgztcu12j7fij397jmd68h4og6ln1jw">DATASET</a> 다운로드`data_training_V4.zip`， 
+폴더 이름 `data_training` 으로 압축 해제， `DAC_SDC_2020_model`과 동일한 디렉토리 위치에 저장 
 
 Dataset 나누기（train / valid）：
 ```bash
-cd dxy_DAC_SDC_2020_model/dac_sdc_2020
-
-python3 split_data.py
+$ cd dxy_DAC_SDC_2020_model/dac_sdc_2020
+$ python3 split_data.py
 ```
 나누기 비율 Train(9)：Valid(1).  
-실패시 경로 변경
-`data_training`과 `dxy_DAC_SDC_2020_model` 동일 디렉토리 생성
+
+실패시 경로 확인/변경 
+`data_training`과 `DAC_SDC_2020_model` 동일 디렉토리 위치에 생성되었는지..
 `dac_sdc_2020_dataset` 포함하는 폴더 `dac.names`（95 Class）、`train`（Train set）`valid`（Valid set）
 
 
 ## 2. Train Parameter 변수 구성
 
-Train Parameter Variable `dxy_DAC_SDC_2020_model/train/config.py` , parameter 구성  
+Train Parameter Variable `DAC_SDC_2020_model/train/config.py` , parameter 구성  
 
 ## 3. Training
 
 최초 사전 훈련이 없으므로, 직접 random 매개 변수 
 
 ```bash
-$ cd dxy_DAC_SDC_2020_model/train
+$ cd DAC_SDC_2020_Yolov3_model/train
 $ python3 dxy_train.py
 ```
 훈련 중, config 지정, `working_dir` 폴더 아래에 만들기，모델 및 테스트 결과 저장. `.pth` 사전，config 포함, 모델 매개변수、검증 세트 등에 대한 결과.  
