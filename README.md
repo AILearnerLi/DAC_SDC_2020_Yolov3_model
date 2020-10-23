@@ -8,6 +8,9 @@ Yolov3 model for <a href="https://dac.com/content/2020-system-design-contest">DA
 - repo : 모델 학습을 위한 코드.  
 
 
+DPNET의 일부를 삭제
+
+
 
 ToDo List：
 - model 압축
