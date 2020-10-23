@@ -1,5 +1,6 @@
 import os
 import sys
+
 MY_DIRNAME = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(MY_DIRNAME, '..'))
 os.environ["MKL_NUM_THREADS"] = '1'
