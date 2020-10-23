@@ -2,10 +2,10 @@
 
 Yolov3 model for <a href="https://dac.com/content/2020-system-design-contest">DAC SDC 2020</a>.
 
-이 대회는, 드론으로 찍은 사진에서 표적 탐지에 관한 것.
-Ultra96 FPGA 보드에서 실행,
-테스트 IOU, FPS  및  소비전력  
-repo : 모델 학습을 위한 코드.  
+- 드론으로 찍은 사진에서 표적 탐지.
+- Ultra96 FPGA 보드에서 실행,
+- 테스트 IOU, FPS  및  소비전력  
+- repo : 모델 학습을 위한 코드.  
 
 
 
